@@ -37,6 +37,12 @@ public class main {
         }
         System.out.println(inputValues);
         System.out.println(correctValues);
+        List<Integer> sizesOfMLP = new ArrayList<>();
+        sizesOfMLP.add(2);
+        sizesOfMLP.add(3);
+        sizesOfMLP.add(4);
+        sizesOfMLP.add(5);
+        MLP mlp = new MLP(sizesOfMLP);
 
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class Matrix {
-    List<List<Double>> data = new ArrayList<>();
+    private List<List<Double>> data = new ArrayList<>();
 
     public Matrix(List<Double> list){
         for(int i = 0; i < list.size(); i++) {
