@@ -35,8 +35,8 @@ public class main {
             tempListInput.clear();
             tempListValues.clear();
         }
-        System.out.println(inputValues);
-        System.out.println(correctValues);
+//        System.out.println(inputValues);
+//        System.out.println(correctValues);
         List<Integer> sizesOfMLP = new ArrayList<>();
         sizesOfMLP.add(4);
         sizesOfMLP.add(2);

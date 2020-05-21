@@ -24,7 +24,7 @@ public class MLP {
             bias.add(biasInConsideredLayer);
         }
         //Adding bias on the output layer
-        biasInConsideredLayer = new Matrix(sizesOfMLP.get(sizesOfMLP.size() - 1), numOfOutputs, true);
+        biasInConsideredLayer = new Matrix(numOfOutputs, 1, true);
         bias.add(biasInConsideredLayer);
 
         this.weights = weights;
