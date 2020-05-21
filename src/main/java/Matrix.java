@@ -7,27 +7,47 @@ import java.util.StringJoiner;
 public class Matrix {
     private List<List<Double>> data = new ArrayList<>();
 
+    /*
+    data in Matrix is put in similar fashion to how you'd look at Matrix in math
+    First layer of lists represents rows, so when data.size() = 2 that means Matrix has 2 rows.
+    Then, when data.get(0).size() = 3 it means it has 3 columns. So it'd look like that:
+    [ x x x ]
+    [ x x x ]
+     */
+
     public Matrix(List<Double> list){
-        for(int i = 0; i < list.size(); i++) {
+        for(int i = 0; i < list.size(); i++){
             data.add(new ArrayList<>());
             data.get(i).add(list.get(i));
         }
     }
 
-    public Matrix(int n, int m){
+    public Matrix(int n, int m, boolean randValues){
         List<Double> temp = new ArrayList<>();
         for(int i = 0; i < m; i++){
-            temp.add(Double.valueOf(0));
+            if(randValues){
+                temp.add(Math.random());
+            } else {
+                temp.add((double) 0);
+            }
         }
         for(int i = 0; i < n; i++){
             data.add(temp);
         }
     }
 
+    void activationFunction() {
+        for(List<Double> list : this.data){
+            for(Double valueToActivate : list){
+                valueToActivate = 1.0 / (1.0 + Math.exp(-valueToActivate));
+            }
+        }
+    }
+
     Matrix transpose() {
         int m = this.data.size();
         int n = this.data.get(0).size();
-        Matrix b = new Matrix(n, m);
+        Matrix b = new Matrix(n, m, false );
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 b.data.get(j).set(i, this.data.get(i).get(j));
@@ -44,7 +64,7 @@ public class Matrix {
         if(a_cols != b_rows){
             System.out.println("multiplyMatrices");
         }
-        Matrix product = new Matrix(a_rows, b_cols);
+        Matrix product = new Matrix(a_rows, b_cols, false);
         double temp = 0;
         for(int i = 0; i < a_rows; i++) {
             for (int j = 0; j < b_cols; j++) {
@@ -63,20 +83,18 @@ public class Matrix {
         int m = this.data.size();
         int n = this.data.get(0).size();
 
-        Matrix c = new Matrix(m, n);
+        Matrix c = new Matrix(m, n, false);
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 c.data.get(i).set(j, this.data.get(i).get(j) * b.data.get(i).get(j));
         return c;
-
-
     }
 
     Matrix subtract(Matrix b) {
         int m = this.data.size();
         int n = this.data.get(0).size();
 
-        Matrix c = new Matrix(m, n);
+        Matrix c = new Matrix(m, n, false);
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 c.data.get(i).set(j, this.data.get(i).get(j) - b.data.get(i).get(j));
@@ -92,7 +110,7 @@ public class Matrix {
         if(x != m || z != n)
             System.out.println("AddMatrices");
 
-        Matrix c = new Matrix(m, n);
+        Matrix c = new Matrix(m, n, false);
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 c.data.get(i).set(j, this.data.get(i).get(j) + b.data.get(i).get(j));
@@ -103,7 +121,7 @@ public class Matrix {
     Matrix multiplyMatrixByConst(float b) {
         int m = this.data.size();
         int n = this.data.get(0).size();
-        Matrix c = new Matrix(m, n);
+        Matrix c = new Matrix(m, n, false);
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 c.data.get(i).set(j, this.data.get(i).get(j) * b);
@@ -114,7 +132,7 @@ public class Matrix {
 
         int m = this.data.size();
         int n = this.data.get(0).size();
-        Matrix c = new Matrix(m, n);
+        Matrix c = new Matrix(m, n, false);
 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
@@ -132,7 +150,7 @@ public class Matrix {
         int rows = this.data.size();
         int cols = this.data.get(0).size();
 
-        Matrix nMatrix = new Matrix(rows + 1, cols);
+        Matrix nMatrix = new Matrix(rows + 1, cols, false);
 
         for(int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -153,7 +171,7 @@ public class Matrix {
         int rows = this.data.size();
         int cols = this.data.get(0).size();
 
-        Matrix nMatrix = new Matrix(rows - 1, cols);
+        Matrix nMatrix = new Matrix(rows - 1, cols, false);
 
         for(int i = 0; i < rows - 1; i++){
             for(int j = 0; j < cols; j++) {
@@ -168,7 +186,7 @@ public class Matrix {
         int cols = this.data.get(0).size();
         double temp = 1.0;
 
-        Matrix nMatrix = new Matrix(rows, cols);
+        Matrix nMatrix = new Matrix(rows, cols, false);
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
                 nMatrix.data.get(i).set(j, temp);

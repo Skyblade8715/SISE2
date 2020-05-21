@@ -16,8 +16,8 @@ public class main {
             e.printStackTrace();
         }
         assert listFromFile != null;
-        List<List<Double>> inputValues = new ArrayList<>();
-        List<List<Double>> correctValues = new ArrayList<>();
+        List<Matrix> inputValues = new ArrayList<>();
+        List<Matrix> correctValues = new ArrayList<>();
         List<Double> tempListInput = new ArrayList<>();
         List<Double> tempListValues = new ArrayList<>();
         String[] tempString;
@@ -30,19 +30,19 @@ public class main {
                     tempListValues.add(Double.valueOf(tempString[j]));
                 }
             }
-            inputValues.add(new ArrayList<>(tempListInput));
-            correctValues.add(new ArrayList<>(tempListValues));
+            inputValues.add(new Matrix(tempListInput));
+            correctValues.add(new Matrix(tempListValues));
             tempListInput.clear();
             tempListValues.clear();
         }
         System.out.println(inputValues);
         System.out.println(correctValues);
         List<Integer> sizesOfMLP = new ArrayList<>();
-        sizesOfMLP.add(2);
-        sizesOfMLP.add(3);
         sizesOfMLP.add(4);
-        sizesOfMLP.add(5);
-        MLP mlp = new MLP(sizesOfMLP);
+        sizesOfMLP.add(2);
+        sizesOfMLP.add(4);
+        MLP mlp = new MLP(sizesOfMLP, 2 , 2);
+        mlp.backpropagation(inputValues.get(0), correctValues.get(0));
 
     }
 }
